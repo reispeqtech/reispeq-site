@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useHeaderOffset } from "../use-header-offset";
 import type { Locale } from "@/i18n/config";
 
 type Item = { href: string; label: string };
@@ -25,6 +26,8 @@ export function MobileNav({
 }) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const headerBottom = useHeaderOffset(open, trigger);
   const pathname = usePathname();
 
   useEffect(() => setMounted(true), []);
@@ -46,6 +49,7 @@ export function MobileNav({
     <div
       id="mobile-nav-panel"
       lang={locale}
+      style={{ top: headerBottom ?? undefined }}
       className="fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40 overflow-y-auto overscroll-contain border-t border-line bg-white lg:hidden"
     >
       <nav className="u-shell py-6" aria-label={openLabel}>
@@ -77,6 +81,7 @@ export function MobileNav({
   return (
     <>
       <button
+        ref={trigger}
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}

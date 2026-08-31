@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Button } from "@/components/ui";
+import { Button } from "@/components/v1/ui";
 import { getDictionary } from "@/i18n/dictionaries";
 import { defaultLocale } from "@/i18n/config";
-import { href } from "@/lib/routes";
+import { href } from "@/lib/links/v1";
 
 export default function LocaleNotFound() {
   const t = getDictionary(defaultLocale);

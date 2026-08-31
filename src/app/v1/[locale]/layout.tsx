@@ -1,14 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { IBM_Plex_Sans, IBM_Plex_Sans_Arabic, IBM_Plex_Mono } from "next/font/google";
-import "../globals.css";
+import "../../globals.css";
 
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/v1/site-header";
+import { SiteFooter } from "@/components/v1/site-footer";
 import { JsonLd, organizationSchema, websiteSchema } from "@/components/json-ld";
 import { getDictionary } from "@/i18n/dictionaries";
 import { locales, localeMeta, isLocale, type Locale } from "@/i18n/config";
 import { site } from "@/lib/site";
+import { robotsFor } from "@/lib/seo";
 import { asset } from "@/lib/base-path";
 
 const plexSans = IBM_Plex_Sans({
@@ -62,11 +63,7 @@ export async function generateMetadata({
     creator: site.name,
     publisher: site.name,
     formatDetection: { telephone: false, address: false, email: false },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
-    },
+    robots: robotsFor("v1"),
     icons: {
       icon: [{ url: asset("/icon.svg"), type: "image/svg+xml" }],
       apple: [{ url: asset("/apple-touch-icon.png"), sizes: "180x180", type: "image/png" }],

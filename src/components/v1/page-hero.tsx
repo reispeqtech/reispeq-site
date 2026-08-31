@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { getDictionary } from "@/i18n/dictionaries";
 import type { Locale } from "@/i18n/config";
-import { href, type RouteKey } from "@/lib/routes";
+import { href } from "@/lib/links/v1";
+import { type RouteKey } from "@/lib/routes";
 
 export function Breadcrumbs({
   locale,

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { CtaBand } from "@/components/cta-band";
-import { PageHero } from "@/components/page-hero";
+import { CtaBand } from "@/components/v1/cta-band";
+import { PageHero } from "@/components/v1/page-hero";
 import { JsonLd, breadcrumbSchema, serviceSchema } from "@/components/json-ld";
-import { CheckList, NumberedGrid, Section, SectionHead } from "@/components/ui";
+import { CheckList, NumberedGrid, Section, SectionHead } from "@/components/v1/ui";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
 import { buildMetadata, keywordSets } from "@/lib/seo";
@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(locale)) return {};
   const t = getDictionary(locale);
   return buildMetadata({
+    version: "v1",
     locale,
     route: "inspection",
     title: t.seo.inspection.title,
@@ -35,12 +36,13 @@ export default async function Page({ params }: Props) {
     <>
       <JsonLd
         data={[
-          breadcrumbSchema(locale, [
+          breadcrumbSchema("v1", locale, [
             { name: t.nav.home, route: "home" },
             { name: t.nav.services, route: "services" },
             { name: t.nav.inspection, route: "inspection" },
           ]),
           serviceSchema({
+            version: "v1",
             locale,
             route: "inspection",
             name: page.hero.title,

@@ -1,31 +1,47 @@
 import type { Metadata } from "next";
 import { site } from "./site";
-import { localeMeta, locales, localePath, type Locale } from "@/i18n/config";
-import { routes, type RouteKey } from "./routes";
-
-const pathFor = (key: RouteKey) => routes.find((r) => r.key === key)!.path;
+import { localeMeta, locales, type Locale } from "@/i18n/config";
+import { absoluteFor, type RouteKey } from "./routes";
+import { liveVersion, type Version } from "./versions";
 
 /** Absolute URL for a locale + route, used for canonical, hreflang and JSON-LD. */
-export function absoluteUrl(locale: Locale, key: RouteKey): string {
-  // `trailingSlash: true` in next.config means the exported page is served at
-  // /en/auditing/ — canonical, hreflang and sitemap must agree with that.
-  return `${site.url}${localePath(locale, pathFor(key))}/`;
+export function absoluteUrl(version: Version, locale: Locale, key: RouteKey): string {
+  return absoluteFor(version, locale, key);
+}
+
+/**
+ * Only the live version may be indexed. The archived build carries
+ * near-identical copy, which is exactly the duplicate-content case that gets a
+ * site filtered, so it is kept out of the index rather than left to compete
+ * with the pages it was replaced by.
+ */
+export function robotsFor(version: Version): Metadata["robots"] {
+  if (version === liveVersion) {
+    return {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+    };
+  }
+  return { index: false, follow: false, nocache: true };
 }
 
 export function buildMetadata({
+  version,
   locale,
   route,
   title,
   description,
   keywords,
 }: {
+  version: Version;
   locale: Locale;
   route: RouteKey;
   title: string;
   description: string;
   keywords?: string[];
 }): Metadata {
-  const canonical = absoluteUrl(locale, route);
+  const canonical = absoluteUrl(version, locale, route);
   // A committed asset rather than a generated route: static hosts serve
   // extension-less files as application/octet-stream, which breaks previews.
   // Regenerate public/og.png only if the brand line changes.
@@ -33,19 +49,20 @@ export function buildMetadata({
     url: `${site.url}/og.png`,
     width: 1200,
     height: 630,
-    alt: `${site.name} — ${title}`,
+    alt: `${site.name} \u2014 ${title}`,
   };
 
   const languages: Record<string, string> = {};
   for (const code of locales) {
-    languages[localeMeta[code].htmlLang] = absoluteUrl(code, route);
+    languages[localeMeta[code].htmlLang] = absoluteUrl(version, code, route);
   }
-  languages["x-default"] = absoluteUrl("en", route);
+  languages["x-default"] = absoluteUrl(version, "en", route);
 
   return {
     title,
     description,
     keywords,
+    robots: robotsFor(version),
     alternates: { canonical, languages },
     openGraph: {
       type: "website",

@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { CtaBand } from "@/components/cta-band";
-import { PageHero } from "@/components/page-hero";
+import { CtaBand } from "@/components/v1/cta-band";
+import { PageHero } from "@/components/v1/page-hero";
 import { JsonLd, breadcrumbSchema } from "@/components/json-ld";
-import { ArrowIcon, Section } from "@/components/ui";
+import { ArrowIcon, Section } from "@/components/v1/ui";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
-import { href, serviceKeys } from "@/lib/routes";
+import { href } from "@/lib/links/v1";
+import { serviceKeys } from "@/lib/routes";
 import { buildMetadata, keywordSets } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -18,6 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(locale)) return {};
   const t = getDictionary(locale);
   return buildMetadata({
+    version: "v1",
     locale,
     route: "services",
     title: t.seo.services.title,
@@ -35,7 +37,7 @@ export default async function ServicesPage({ params }: Props) {
   return (
     <>
       <JsonLd
-        data={breadcrumbSchema(locale, [
+        data={breadcrumbSchema("v1", locale, [
           { name: t.nav.home, route: "home" },
           { name: t.nav.services, route: "services" },
         ])}

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { ContactForm } from "@/components/contact-form";
-import { PageHero } from "@/components/page-hero";
+import { ContactForm } from "@/components/v1/contact-form";
+import { PageHero } from "@/components/v1/page-hero";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/json-ld";
-import { Section } from "@/components/ui";
+import { Section } from "@/components/v1/ui";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
 import { buildMetadata, keywordSets } from "@/lib/seo";
@@ -17,6 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(locale)) return {};
   const t = getDictionary(locale);
   return buildMetadata({
+    version: "v1",
     locale,
     route: "contact",
     title: t.seo.contact.title,
@@ -41,7 +42,7 @@ export default async function ContactPage({ params }: Props) {
     <>
       <JsonLd
         data={[
-          breadcrumbSchema(locale, [
+          breadcrumbSchema("v1", locale, [
             { name: t.nav.home, route: "home" },
             { name: t.nav.contact, route: "contact" },
           ]),

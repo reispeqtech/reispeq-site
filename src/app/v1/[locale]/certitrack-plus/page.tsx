@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { CertPanel } from "@/components/cert-panel";
-import { CtaBand } from "@/components/cta-band";
-import { PageHero } from "@/components/page-hero";
+import { CertPanel } from "@/components/v1/cert-panel";
+import { CtaBand } from "@/components/v1/cta-band";
+import { PageHero } from "@/components/v1/page-hero";
 import { JsonLd, breadcrumbSchema, softwareSchema } from "@/components/json-ld";
-import { ArrowIcon, CheckList, NumberedGrid, Section, SectionHead } from "@/components/ui";
+import { ArrowIcon, CheckList, NumberedGrid, Section, SectionHead } from "@/components/v1/ui";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
-import { href } from "@/lib/routes";
+import { href } from "@/lib/links/v1";
 import { buildMetadata, keywordSets } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -20,6 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(locale)) return {};
   const t = getDictionary(locale);
   return buildMetadata({
+    version: "v1",
     locale,
     route: "certitrack",
     title: t.seo.certitrack.title,
@@ -38,7 +39,7 @@ export default async function CertiTrackPage({ params }: Props) {
     <>
       <JsonLd
         data={[
-          breadcrumbSchema(locale, [
+          breadcrumbSchema("v1", locale, [
             { name: t.nav.home, route: "home" },
             { name: t.nav.services, route: "services" },
             { name: t.nav.certitrack, route: "certitrack" },

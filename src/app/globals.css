@@ -71,13 +71,23 @@ html {
   }
 }
 
-body {
-  background-color: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-synthesis-weight: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
+/*
+ * Layered deliberately. Tailwind v4 emits its utilities inside `@layer
+ * utilities`, and an UNLAYERED rule beats every layered one no matter how weak
+ * its selector — so a bare `body { background-color }` here silently defeats
+ * `bg-[#06070f]` on the same element. That is how the dark iterations came out
+ * white. Anything that sets a property a utility might also set belongs in
+ * `@layer base`.
+ */
+@layer base {
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
 }
 
 html[dir="rtl"] body {
@@ -149,4 +159,69 @@ html[dir="rtl"] .u-balance {
 /* Directional glyphs (arrows) mirror in RTL */
 @utility u-dir-flip {
   html[dir="rtl"] & { transform: scaleX(-1); }
+}
+
+/* ------------------------------------------------------------------ *
+ * v2 / v3 / v4 — the "metro" iterations
+ *
+ * The newer designs run wider than the original, square everything off,
+ * and lay photographs under text. These are the pieces of that which are
+ * awkward to express as utility classes at every call site.
+ * ------------------------------------------------------------------ */
+
+:root {
+  --shell-wide: 1440px;
+  /* Utility strip (32px) + main bar (72px). The mobile panel offsets by this. */
+  --header-metro: 72px;
+}
+
+@utility u-shell-wide {
+  width: 100%;
+  max-width: var(--shell-wide);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) { padding-inline: 2rem; }
+  @media (width >= 80rem) { padding-inline: 3rem; }
+}
+
+/* Bottom-up scrim so a title stays legible over any photograph. Two stops
+   rather than one: a linear fade greys the whole image, a curved one keeps
+   the top of the picture intact. */
+@utility u-scrim-b {
+  background-image: linear-gradient(
+    to top,
+    rgb(10 11 32 / 0.92) 0%,
+    rgb(10 11 32 / 0.72) 28%,
+    rgb(10 11 32 / 0.18) 62%,
+    rgb(10 11 32 / 0.04) 100%
+  );
+}
+
+/* Side scrim for the hero: text sits on the leading edge, so the darkening
+   has to follow the writing direction rather than always run left-to-right. */
+@utility u-scrim-s {
+  background-image: linear-gradient(
+    to right,
+    rgb(10 11 32 / 0.94) 0%,
+    rgb(10 11 32 / 0.82) 32%,
+    rgb(10 11 32 / 0.45) 62%,
+    rgb(10 11 32 / 0.25) 100%
+  );
+  html[dir="rtl"] & {
+    background-image: linear-gradient(
+      to left,
+      rgb(10 11 32 / 0.94) 0%,
+      rgb(10 11 32 / 0.82) 32%,
+      rgb(10 11 32 / 0.45) 62%,
+      rgb(10 11 32 / 0.25) 100%
+    );
+  }
+}
+
+/* The metro grid's hairlines are the background showing through 1px gaps,
+   which keeps every cell a true rectangle with no doubled borders at the
+   joins and no half-pixel seams when the grid reflows. */
+@utility u-metro {
+  display: grid;
+  gap: 1px;
 }

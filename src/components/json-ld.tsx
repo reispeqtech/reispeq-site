@@ -2,6 +2,7 @@ import { site } from "@/lib/site";
 import type { Locale } from "@/i18n/config";
 import { absoluteUrl } from "@/lib/seo";
 import type { RouteKey } from "@/lib/routes";
+import type { Version } from "@/lib/versions";
 
 /**
  * Emits JSON-LD. Kept as a component so each page declares only the schema it
@@ -15,6 +16,18 @@ export function JsonLd({ data }: { data: Record<string, unknown> | Record<string
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
     />
   );
+}
+
+/**
+ * `areaServed` for the whole site: the named countries as schema.org Country
+ * entries, plus the African regions as plain Places. Regions rather than
+ * countries there because that is the level the site itself claims.
+ */
+function areaServed() {
+  return [
+    ...site.regions.countries.map((code) => ({ "@type": "Country", identifier: code })),
+    ...site.regions.areas.map((name) => ({ "@type": "Place", name })),
+  ];
 }
 
 export function organizationSchema(locale: Locale) {
@@ -35,7 +48,7 @@ export function organizationSchema(locale: Locale) {
       addressLocality: a.city,
       addressCountry: a.countryCode,
     })),
-    areaServed: site.regions.map((code) => ({ "@type": "Country", identifier: code })),
+    areaServed: areaServed(),
     sameAs: [site.social.linkedin, site.products.certiTrack.url],
     inLanguage: locale,
     knowsAbout: [
@@ -63,12 +76,14 @@ export function websiteSchema(locale: Locale) {
 }
 
 export function serviceSchema({
+  version,
   locale,
   route,
   name,
   description,
   serviceType,
 }: {
+  version: Version;
   locale: Locale;
   route: RouteKey;
   name: string;
@@ -81,9 +96,9 @@ export function serviceSchema({
     name,
     description,
     serviceType,
-    url: absoluteUrl(locale, route),
+    url: absoluteUrl(version, locale, route),
     provider: { "@id": `${site.url}/#organization` },
-    areaServed: site.regions.map((code) => ({ "@type": "Country", identifier: code })),
+    areaServed: areaServed(),
     availableLanguage: ["en", "ar"],
   };
 }
@@ -103,7 +118,11 @@ export function softwareSchema(locale: Locale, description: string) {
   };
 }
 
-export function breadcrumbSchema(locale: Locale, trail: { name: string; route: RouteKey }[]) {
+export function breadcrumbSchema(
+  version: Version,
+  locale: Locale,
+  trail: { name: string; route: RouteKey }[],
+) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -111,7 +130,7 @@ export function breadcrumbSchema(locale: Locale, trail: { name: string; route: R
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      item: absoluteUrl(locale, item.route),
+      item: absoluteUrl(version, locale, item.route),
     })),
   };
 }

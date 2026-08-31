@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { CertPanel } from "@/components/cert-panel";
-import { CtaBand } from "@/components/cta-band";
+import { CertPanel } from "@/components/v1/cert-panel";
+import { CtaBand } from "@/components/v1/cta-band";
 import { JsonLd, breadcrumbSchema } from "@/components/json-ld";
-import { ArrowIcon, Button, CheckList, NumberedGrid, Section, SectionHead } from "@/components/ui";
+import { ArrowIcon, Button, CheckList, NumberedGrid, Section, SectionHead } from "@/components/v1/ui";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
-import { href, serviceKeys } from "@/lib/routes";
+import { href } from "@/lib/links/v1";
+import { serviceKeys } from "@/lib/routes";
 import { buildMetadata, keywordSets } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -20,6 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = getDictionary(locale);
   return {
     ...buildMetadata({
+      version: "v1",
       locale,
       route: "home",
       title: t.seo.home.title,
@@ -45,7 +47,7 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      <JsonLd data={breadcrumbSchema(locale, [{ name: t.nav.home, route: "home" }])} />
+      <JsonLd data={breadcrumbSchema("v1", locale, [{ name: t.nav.home, route: "home" }])} />
 
       {/* ---------- Hero ---------- */}
       <section className="relative overflow-hidden border-b border-line bg-surface">

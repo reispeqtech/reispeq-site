@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { CtaBand } from "@/components/cta-band";
-import { PageHero } from "@/components/page-hero";
+import { CtaBand } from "@/components/v1/cta-band";
+import { PageHero } from "@/components/v1/page-hero";
 import { JsonLd, breadcrumbSchema, serviceSchema } from "@/components/json-ld";
-import { Button, CheckList, NumberedGrid, Section, SectionHead } from "@/components/ui";
+import { Button, CheckList, NumberedGrid, Section, SectionHead } from "@/components/v1/ui";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
-import { href } from "@/lib/routes";
+import { href } from "@/lib/links/v1";
 import { buildMetadata, keywordSets } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -17,6 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(locale)) return {};
   const t = getDictionary(locale);
   return buildMetadata({
+    version: "v1",
     locale,
     route: "software",
     title: t.seo.software.title,
@@ -35,12 +36,13 @@ export default async function SoftwarePage({ params }: Props) {
     <>
       <JsonLd
         data={[
-          breadcrumbSchema(locale, [
+          breadcrumbSchema("v1", locale, [
             { name: t.nav.home, route: "home" },
             { name: t.nav.services, route: "services" },
             { name: t.nav.software, route: "software" },
           ]),
           serviceSchema({
+            version: "v1",
             locale,
             route: "software",
             name: t.software.hero.title,
