@@ -58,8 +58,19 @@ export const site = {
       lines: ["Dubai", "United Arab Emirates"],
     },
   ],
-  /** Markets the company sells into — drives `areaServed` in structured data. */
-  regions: ["OM", "AE", "SA", "QA", "KW", "BH", "IQ"],
+  /**
+   * Markets the company sells into — drives `areaServed` in structured data.
+   *
+   * `countries` are ISO 3166-1 alpha-2 and become schema.org Country entries.
+   * `areas` are named regions rather than countries, because the African
+   * coverage is stated regionally on the site and structured data should not
+   * claim more precision than the copy does. Name specific African countries
+   * here once they are confirmed.
+   */
+  regions: {
+    countries: ["OM", "AE", "SA", "QA", "KW", "BH", "IQ"],
+    areas: ["North Africa", "West Africa", "East Africa"],
+  },
   products: {
     certiTrack: {
       name: "CertiTrack Plus",

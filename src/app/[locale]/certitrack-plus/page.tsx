@@ -1,25 +1,28 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { CertPanel } from "@/components/cert-panel";
-import { CtaBand } from "@/components/cta-band";
-import { PageHero } from "@/components/page-hero";
+import { ProductShot } from "@/components/site/product-shot";
+import { CtaBand } from "@/components/site/cta-band";
+import { PageHero } from "@/components/site/page-hero";
+import { RelatedServices } from "@/components/site/related";
+import { ArrowLink, Band, Btn, IconMetro, Statement, Ticks } from "@/components/site/ui";
 import { JsonLd, breadcrumbSchema, softwareSchema } from "@/components/json-ld";
-import { ArrowIcon, CheckList, NumberedGrid, Section, SectionHead } from "@/components/ui";
 import { getDictionary } from "@/i18n/dictionaries";
-import { isLocale, type Locale } from "@/i18n/config";
 import { href } from "@/lib/routes";
+import { isLocale, type Locale } from "@/i18n/config";
 import { buildMetadata, keywordSets } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string }> };
+
+const featureIcons = ["certificate", "bell", "history", "checklist", "chart", "shield"] as const;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const t = getDictionary(locale);
   return buildMetadata({
+    version: "main",
     locale,
     route: "certitrack",
     title: t.seo.certitrack.title,
@@ -33,12 +36,13 @@ export default async function CertiTrackPage({ params }: Props) {
   if (!isLocale(raw)) notFound();
   const locale = raw as Locale;
   const t = getDictionary(locale);
+  const page = t.certitrack;
 
   return (
     <>
       <JsonLd
         data={[
-          breadcrumbSchema(locale, [
+          breadcrumbSchema("main", locale, [
             { name: t.nav.home, route: "home" },
             { name: t.nav.services, route: "services" },
             { name: t.nav.certitrack, route: "certitrack" },
@@ -54,39 +58,30 @@ export default async function CertiTrackPage({ params }: Props) {
           { label: t.nav.services, route: "services" },
           { label: t.nav.certitrack, route: "certitrack" },
         ]}
-        title={t.certitrack.hero.title}
-        lead={t.certitrack.hero.lead}
+        title={page.hero.title}
+        lead={page.hero.lead}
+        image="tabletReview"
       >
-        <div className="flex flex-wrap gap-3">
-          <Link
-            href={href(locale, "contact")}
-            className="group inline-flex items-center gap-2 rounded-sm bg-azure-400 px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-azure-500"
-          >
-            {t.certitrack.hero.primaryCta}
-            <ArrowIcon className="transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
-          </Link>
-          <a
-            href={site.products.certiTrack.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-sm border border-line bg-white px-5 py-3.5 text-sm font-semibold text-ink transition-colors hover:border-brand-300 hover:text-brand-600"
-          >
-            <bdi dir="ltr">{t.certitrack.hero.secondaryCta}</bdi>
-            <svg viewBox="0 0 12 12" fill="none" aria-hidden className="h-3 w-3">
-              <path d="M4 2h6v6M10 2 2.5 9.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
+        <div className="flex flex-wrap items-center gap-3">
+          <Btn href={href(locale, "contact")} variant="accent">
+            {page.hero.primaryCta}
+          </Btn>
+          {/* The application itself lives on its own domain. This is the only
+              CTA on the site that deliberately leaves it. */}
+          <Btn href={site.products.certiTrack.url} variant="outline" external>
+            {page.hero.secondaryCta}
+          </Btn>
         </div>
       </PageHero>
 
-      <Section>
+      <Band>
         <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
           <div className="lg:col-span-5">
-            <h2 className="u-balance text-[1.9rem] font-semibold text-ink sm:text-[2.35rem]">
-              {t.certitrack.problem.title}
+            <h2 className="u-balance mt-6 text-[1.9rem] font-semibold text-ink sm:text-[2.4rem]">
+              {page.problem.title}
             </h2>
-            <div className="mt-6 space-y-5">
-              {t.certitrack.problem.body.map((para) => (
+            <div className="mt-7 space-y-5">
+              {page.problem.body.map((para) => (
                 <p key={para.slice(0, 24)} className="u-pretty text-[16.5px] leading-relaxed text-ink-soft">
                   {para}
                 </p>
@@ -94,48 +89,70 @@ export default async function CertiTrackPage({ params }: Props) {
             </div>
           </div>
           <div className="min-w-0 lg:col-span-7 lg:ps-8">
-            <CertPanel locale={locale} />
+            <ProductShot
+              name="dashboard"
+              title={t.ui.product.screens.dashboard.title}
+              caption={t.ui.product.screens.dashboard.caption}
+              priority
+            />
           </div>
         </div>
-      </Section>
+      </Band>
 
-      <Section tone="surface">
-        <SectionHead title={t.certitrack.features.title} />
+      <Band tone="surface">
+        <Statement title={page.features.title} tone="surface" />
         <div className="mt-14">
-          <NumberedGrid items={t.certitrack.features.items} columns={3} />
+          <IconMetro items={page.features.items} icons={featureIcons} columns={3} tone="surface" />
         </div>
-      </Section>
+      </Band>
 
-      <Section>
+      <Band>
+        <ProductShot
+          name="expiry"
+          title={t.ui.product.screens.expiry.title}
+          caption={t.ui.product.screens.expiry.caption}
+        />
+        <div className="mt-10">
+          <ProductShot
+            name="work-units"
+            title={t.ui.product.screens.workUnits.title}
+            caption={t.ui.product.screens.workUnits.caption}
+          />
+        </div>
+      </Band>
+
+      <Band tone="navy">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6">
-            <h2 className="u-balance text-2xl font-semibold text-ink sm:text-[1.85rem]">
-              {t.certitrack.audience.title}
+            <h2 className="u-balance mt-6 text-[1.9rem] font-semibold sm:text-[2.3rem]">
+              {page.audience.title}
             </h2>
-            <div className="mt-8">
-              <CheckList items={t.certitrack.audience.items} />
+            <div className="mt-9">
+              <Ticks items={page.audience.items} tone="navy" />
             </div>
           </div>
+
           <div className="lg:col-span-6">
-            <div className="h-full rounded-md border border-azure-200 bg-azure-50/60 p-8">
-              <h3 className="text-lg font-semibold text-brand-700">{t.certitrack.outcome.title}</h3>
-              <p className="u-pretty mt-4 text-[16px] leading-relaxed text-ink-soft">
-                {t.certitrack.outcome.body}
-              </p>
-              <div className="mt-8 border-t border-azure-200 pt-6">
-                <Link
-                  href={href(locale, "software")}
-                  className="group inline-flex items-center gap-2 text-sm font-semibold text-azure-600 hover:text-brand-700"
-                >
-                  {t.nav.software}
-                  <ArrowIcon className="transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
-                </Link>
+            <div className="h-full border border-white/15 bg-white/[0.04] p-8 lg:p-10">
+              <h3 className="text-[1.35rem] font-semibold">{page.outcome.title}</h3>
+              <p className="u-pretty mt-5 text-[16px] leading-relaxed text-white/70">{page.outcome.body}</p>
+
+              <div className="mt-9 border-t border-white/15 pt-7">
+                <div className="flex flex-wrap gap-x-8 gap-y-3">
+                  <ArrowLink href={site.products.certiTrack.url} tone="navy" external>
+                    {t.ui.product.visit}
+                  </ArrowLink>
+                  <ArrowLink href={href(locale, "software")} tone="navy">
+                    {t.nav.software}
+                  </ArrowLink>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </Section>
+      </Band>
 
+      <RelatedServices locale={locale} current="certitrack" />
       <CtaBand locale={locale} />
     </>
   );

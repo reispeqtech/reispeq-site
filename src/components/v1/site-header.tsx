@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { ReispeqLogo } from "./logo";
-import { LanguageSwitch } from "./language-switch";
+import { ReispeqLogo } from "../logo";
+import { LanguageSwitch } from "../language-switch";
 import { MobileNav } from "./mobile-nav";
 import { getDictionary } from "@/i18n/dictionaries";
 import type { Locale } from "@/i18n/config";
-import { href, serviceKeys } from "@/lib/routes";
+import { href } from "@/lib/links/v1";
+import { serviceKeys } from "@/lib/routes";
 import { site } from "@/lib/site";
 
 export function SiteHeader({ locale }: { locale: Locale }) {

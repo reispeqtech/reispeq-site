@@ -1,0 +1,166 @@
+"use client";
+
+import { useState, type FormEvent, type ReactNode } from "react";
+import type { Dictionary } from "@/i18n/en";
+import type { Locale } from "@/i18n/config";
+import { site } from "@/lib/site";
+import { isHoneypotTripped, sendEnquiry, validateEnquiry, type EnquiryData } from "@/lib/contact";
+
+type Status = "idle" | "submitting" | "success" | "error";
+
+/**
+ * Same delivery path as every other iteration — see `lib/contact.ts` — with
+ * the square, hairline-bordered fields the rest of v2 uses.
+ */
+const field =
+  "w-full border border-line bg-white px-4 py-3.5 text-[15px] text-ink transition-colors placeholder:text-muted/60 focus:border-brand-500 focus:outline-none focus-visible:outline-none";
+const labelClass = "block text-[11.5px] font-semibold tracking-[0.12em] text-muted uppercase";
+
+export function ContactForm({ t, locale }: { t: Dictionary["contact"]["form"]; locale: Locale }) {
+  const [status, setStatus] = useState<Status>("idle");
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form).entries()) as EnquiryData;
+
+    const nextErrors = validateEnquiry(data, t);
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) return;
+
+    if (isHoneypotTripped(data)) {
+      setStatus("success");
+      return;
+    }
+
+    setStatus("submitting");
+    try {
+      await sendEnquiry(data, locale);
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  if (status === "success") {
+    return (
+      <div role="status" className="border-s-4 border-signal-500 bg-signal-50 p-8">
+        <h3 className="text-[1.2rem] font-semibold text-ink">{t.successTitle}</h3>
+        <p className="u-pretty mt-3 text-[15px] leading-relaxed text-ink-soft">{t.successBody}</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={onSubmit} noValidate className="space-y-6">
+      {/* Honeypot — hidden from people, tempting to bots. */}
+      <div aria-hidden className="absolute h-0 w-0 overflow-hidden opacity-0">
+        <label htmlFor="v2-company-website">Company website</label>
+        <input id="v2-company-website" name="company_website" tabIndex={-1} autoComplete="off" />
+      </div>
+
+      <div className="grid gap-6 sm:grid-cols-2">
+        <Field id="v2-name" label={t.name} error={errors.name}>
+          <input id="v2-name" name="name" autoComplete="name" required className={field} />
+        </Field>
+        <Field id="v2-company" label={t.company} error={errors.company}>
+          <input id="v2-company" name="company" autoComplete="organization" required className={field} />
+        </Field>
+        <Field id="v2-email" label={t.email} error={errors.email}>
+          <input
+            id="v2-email"
+            name="email"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            required
+            dir="ltr"
+            className={field}
+          />
+        </Field>
+        <Field id="v2-phone" label={t.phone}>
+          <input id="v2-phone" name="phone" type="tel" autoComplete="tel" dir="ltr" className={field} />
+        </Field>
+        <Field id="v2-country" label={t.country}>
+          <select id="v2-country" name="country" defaultValue={t.countries[0]} className={field}>
+            {t.countries.map((country) => (
+              <option key={country}>{country}</option>
+            ))}
+          </select>
+        </Field>
+        <Field id="v2-interest" label={t.interest}>
+          <select id="v2-interest" name="interest" defaultValue={t.interestOptions[0]} className={field}>
+            {t.interestOptions.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </select>
+        </Field>
+      </div>
+
+      <Field id="v2-message" label={t.message} error={errors.message}>
+        <textarea
+          id="v2-message"
+          name="message"
+          rows={6}
+          required
+          placeholder={t.messagePlaceholder}
+          className={`${field} resize-y`}
+        />
+      </Field>
+
+      <label className="flex items-start gap-3 text-[13.5px] leading-relaxed text-muted">
+        <input
+          type="checkbox"
+          name="consent"
+          required
+          className="mt-0.5 h-4 w-4 shrink-0 rounded-none border-line accent-[#2f318c]"
+        />
+        <span className="u-pretty">{t.consent}</span>
+      </label>
+
+      {status === "error" ? (
+        <div role="alert" className="border-s-4 border-alert-500 bg-alert-50 p-5">
+          <p className="text-[14px] font-semibold text-ink">{t.errorTitle}</p>
+          <p className="mt-1 text-[13.5px] text-ink-soft">
+            {t.errorBody}{" "}
+            <a href={`mailto:${site.email}`} className="font-semibold underline underline-offset-4">
+              <bdi dir="ltr">{site.email}</bdi>
+            </a>
+          </p>
+        </div>
+      ) : null}
+
+      <button
+        type="submit"
+        disabled={status === "submitting"}
+        className="inline-flex w-full items-center justify-center bg-brand-500 px-8 py-4 text-[14px] font-semibold text-white transition-colors hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+      >
+        {status === "submitting" ? t.submitting : t.submit}
+      </button>
+    </form>
+  );
+}
+
+function Field({
+  id,
+  label,
+  error,
+  children,
+}: {
+  id: string;
+  label: string;
+  error?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className={labelClass}>
+        {label}
+      </label>
+      <div className="mt-2.5">{children}</div>
+      {error ? <p className="mt-2 text-[12.5px] font-medium text-alert-500">{error}</p> : null}
+    </div>
+  );
+}

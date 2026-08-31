@@ -1,5 +1,35 @@
-import { getDictionary } from "@/i18n/dictionaries";
 import type { Locale } from "@/i18n/config";
+
+/**
+ * Sample register data, held here rather than in the shared dictionary.
+ *
+ * The live site shows real screenshots of CertiTrack Plus now, so this drawn
+ * panel exists only inside the archived v1 build. Keeping its copy local means
+ * the archive cannot pin down wording that the live site has moved on from.
+ */
+const panel = {
+  en: {
+    title: "Certification register",
+    subtitle: "CertiTrack Plus · sample view",
+    columns: { asset: "Asset", cert: "Certificate", due: "Expiry", status: "Status" },
+    statuses: { valid: "Valid", due: "Due soon", expired: "Expired" },
+    footnote: "Expiry alerts, inspection history and evidence in one controlled register.",
+  },
+  ar: {
+    title: "سجلّ الشهادات",
+    subtitle: "سيرتي‑تراك بلس · عرض توضيحي",
+    columns: { asset: "الأصل", cert: "الشهادة", due: "الانتهاء", status: "الحالة" },
+    statuses: { valid: "سارية", due: "تقترب من الانتهاء", expired: "منتهية" },
+    footnote: "تنبيهات الانتهاء وسجل الفحوصات والأدلة في سجل واحد مضبوط.",
+  },
+} as const;
+
+const rows = [
+  { asset: { en: "Elevator 150 T", ar: "رافعة 150 طن" }, cert: "LEEA-0442", due: { en: "18 Nov", ar: "18 نوفمبر" }, status: "valid" },
+  { asset: { en: "Tong — power", ar: "مفتاح ربط آلي" }, cert: "API-7K-1187", due: { en: "02 Sep", ar: "02 سبتمبر" }, status: "due" },
+  { asset: { en: "Sling set 4-leg", ar: "طقم حبال 4 أفرع" }, cert: "LG-2231", due: { en: "11 Aug", ar: "11 أغسطس" }, status: "expired" },
+  { asset: { en: "BOP ram 13-5/8", ar: "مانع انفجار 13-5/8" }, cert: "API-16A-0067", due: { en: "27 Jan", ar: "27 يناير" }, status: "valid" },
+] as const;
 
 const statusStyle: Record<string, string> = {
   valid: "bg-signal-50 text-[#1a8f4e] ring-signal-500/25",
@@ -18,8 +48,7 @@ const statusDot: Record<string, string> = {
  * data — it is not a live feed, and is labelled as a product view.
  */
 export function CertPanel({ locale }: { locale: Locale }) {
-  const t = getDictionary(locale);
-  const p = t.home.panel;
+  const p = panel[locale];
   const statuses = p.statuses as Record<string, string>;
 
   return (
@@ -47,13 +76,13 @@ export function CertPanel({ locale }: { locale: Locale }) {
             </tr>
           </thead>
           <tbody className="divide-y divide-line-soft">
-            {p.rows.map((row) => (
+            {rows.map((row) => (
               <tr key={row.cert}>
-                <td className="px-5 py-3.5 font-medium text-ink">{row.asset}</td>
+                <td className="px-5 py-3.5 font-medium text-ink">{row.asset[locale]}</td>
                 <td className="px-5 py-3.5 font-mono text-[12.5px] text-muted">
                   <bdi dir="ltr">{row.cert}</bdi>
                 </td>
-                <td className="px-5 py-3.5 text-ink-soft">{row.due}</td>
+                <td className="px-5 py-3.5 text-ink-soft">{row.due[locale]}</td>
                 <td className="px-5 py-3.5 text-end">
                   <span
                     className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-semibold ring-1 ring-inset ${statusStyle[row.status]}`}

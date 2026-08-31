@@ -1,4 +1,5 @@
-import { locales, defaultLocale } from "@/i18n/config";
+import { locales, localeMeta, defaultLocale } from "@/i18n/config";
+import { href } from "@/lib/routes";
 import { site } from "@/lib/site";
 
 /**
@@ -13,12 +14,12 @@ import { site } from "@/lib/site";
 export const metadata = {
   title: site.name,
   description:
-    "Reispeq Technologies LLC — software development, auditing and inspection services for oilfield and industrial operations across the Gulf.",
+    "Reispeq Technologies LLC — software development, auditing and inspection services for oilfield and industrial operations across the Middle East and Africa.",
   alternates: {
-    canonical: `${site.url}/${defaultLocale}/`,
+    canonical: `${site.url}${href(defaultLocale, "home")}/`,
     languages: {
-      ...Object.fromEntries(locales.map((l) => [l, `${site.url}/${l}/`])),
-      "x-default": `${site.url}/${defaultLocale}/`,
+      ...Object.fromEntries(locales.map((l) => [l, `${site.url}${href(l, "home")}/`])),
+      "x-default": `${site.url}${href(defaultLocale, "home")}/`,
     },
   },
   robots: { index: false, follow: true },
@@ -36,16 +37,13 @@ export default function RootPage() {
       <body style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif", padding: "2rem" }}>
         <p>{site.name}</p>
         <ul>
-          <li>
-            <a href="./en/" hrefLang="en">
-              English
-            </a>
-          </li>
-          <li>
-            <a href="./ar/" hrefLang="ar" lang="ar" dir="rtl">
-              العربية
-            </a>
-          </li>
+          {locales.map((code) => (
+            <li key={code}>
+              <a href={`./${code}/`} hrefLang={code} lang={code} dir={localeMeta[code].dir}>
+                {localeMeta[code].label}
+              </a>
+            </li>
+          ))}
         </ul>
       </body>
     </html>

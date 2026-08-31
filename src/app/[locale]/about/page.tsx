@@ -1,21 +1,25 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { CtaBand } from "@/components/cta-band";
-import { PageHero } from "@/components/page-hero";
+import { CtaBand } from "@/components/site/cta-band";
+import { PageHero } from "@/components/site/page-hero";
+import { Band, IconMetro, Statement } from "@/components/site/ui";
 import { JsonLd, breadcrumbSchema } from "@/components/json-ld";
-import { NumberedGrid, Section, SectionHead } from "@/components/ui";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
 import { buildMetadata, keywordSets } from "@/lib/seo";
+import { Photo } from "@/components/photo";
 
 type Props = { params: Promise<{ locale: string }> };
+
+const valueIcons = ["document", "workflow", "gauge", "wrench"] as const;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const t = getDictionary(locale);
   return buildMetadata({
+    version: "main",
     locale,
     route: "about",
     title: t.seo.about.title,
@@ -33,7 +37,7 @@ export default async function AboutPage({ params }: Props) {
   return (
     <>
       <JsonLd
-        data={breadcrumbSchema(locale, [
+        data={breadcrumbSchema("main", locale, [
           { name: t.nav.home, route: "home" },
           { name: t.nav.about, route: "about" },
         ])}
@@ -47,38 +51,47 @@ export default async function AboutPage({ params }: Props) {
         ]}
         title={t.about.hero.title}
         lead={t.about.hero.lead}
+        image="offshoreSunset"
       />
 
-      <Section>
-        <div className="space-y-16 lg:space-y-20">
-          {t.about.body.map((block, i) => (
-            <article key={block.title} className="grid gap-8 lg:grid-cols-12 lg:gap-16">
-              <div className="lg:col-span-5">
-                <span className="font-mono text-[15px] font-medium tabular-nums text-brand-300">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h2 className="u-balance mt-4 text-2xl font-semibold text-ink sm:text-[1.75rem]">
-                  {block.title}
-                </h2>
-              </div>
-              <div className="space-y-5 lg:col-span-7">
-                {block.paragraphs.map((para) => (
-                  <p key={para.slice(0, 24)} className="u-pretty text-[16.5px] leading-relaxed text-ink-soft">
-                    {para}
-                  </p>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </Section>
+      {/* Each block is a heading and its prose, split across the measure so a
+          long section never runs as one uninterrupted column. */}
+      {t.about.body.map((block, i) => (
+        <Band key={block.title} tone={i % 2 === 1 ? "surface" : "paper"}>
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-5">
+              <h2 className="u-balance mt-6 text-[1.9rem] font-semibold text-ink sm:text-[2.4rem]">
+                {block.title}
+              </h2>
+            </div>
+            <div className="space-y-6 lg:col-span-7">
+              {block.paragraphs.map((para) => (
+                <p key={para.slice(0, 24)} className="u-pretty text-[17px] leading-relaxed text-ink-soft">
+                  {para}
+                </p>
+              ))}
+            </div>
+          </div>
+        </Band>
+      ))}
 
-      <Section tone="surface">
-        <SectionHead title={t.about.values.title} />
-        <div className="mt-14">
-          <NumberedGrid items={t.about.values.items} columns={2} />
+      {/* One full-bleed plate to break up three blocks of prose. */}
+      <figure className="relative">
+        <div className="relative aspect-[21/9] max-h-[26rem] w-full overflow-hidden bg-brand-950">
+          <Photo
+            image="platformDawn"
+            locale={locale}
+            className="h-full w-full object-cover"
+          />
         </div>
-      </Section>
+      </figure>
+
+      <Band>
+        <Statement title={t.about.values.title} />
+        <div className="mt-14">
+          <IconMetro items={t.about.values.items} icons={valueIcons} columns={2} />
+        </div>
+      </Band>
 
       <CtaBand locale={locale} />
     </>

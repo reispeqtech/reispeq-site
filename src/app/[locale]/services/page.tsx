@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { CtaBand } from "@/components/cta-band";
-import { PageHero } from "@/components/page-hero";
+import { CtaBand } from "@/components/site/cta-band";
+import { PageHero } from "@/components/site/page-hero";
+import { serviceArt, serviceIcons } from "@/lib/service-art";
+import { Tile, TileGrid } from "@/components/site/tiles";
+import { Band } from "@/components/site/ui";
 import { JsonLd, breadcrumbSchema } from "@/components/json-ld";
-import { ArrowIcon, Section } from "@/components/ui";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
 import { href, serviceKeys } from "@/lib/routes";
@@ -18,6 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(locale)) return {};
   const t = getDictionary(locale);
   return buildMetadata({
+    version: "main",
     locale,
     route: "services",
     title: t.seo.services.title,
@@ -25,6 +27,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: keywordSets.services[locale],
   });
 }
+
+/**
+ * Which tiles carry a photograph, and how they fill the 3-column grid.
+ * 2 + 1 on the first row, then three singles — the counts have to add up to
+ * whole rows or the grid leaves a hole where its own background shows through.
+ */
+const layout = [
+  { photo: true, className: "lg:col-span-2", minHeight: "min-h-[22rem]" },
+  { photo: false, className: "", minHeight: "min-h-[22rem]" },
+  { photo: false, className: "", minHeight: "min-h-[20rem]" },
+  { photo: true, className: "", minHeight: "min-h-[20rem]" },
+  { photo: true, className: "", minHeight: "min-h-[20rem]" },
+] as const;
 
 export default async function ServicesPage({ params }: Props) {
   const { locale: raw } = await params;
@@ -35,7 +50,7 @@ export default async function ServicesPage({ params }: Props) {
   return (
     <>
       <JsonLd
-        data={breadcrumbSchema(locale, [
+        data={breadcrumbSchema("main", locale, [
           { name: t.nav.home, route: "home" },
           { name: t.nav.services, route: "services" },
         ])}
@@ -49,44 +64,40 @@ export default async function ServicesPage({ params }: Props) {
         ]}
         title={t.servicesIndex.hero.title}
         lead={t.servicesIndex.hero.lead}
+        image="rigWork"
       />
 
-      <Section>
-        <ul className="grid gap-px border-t border-line sm:grid-cols-2">
+      <Band>
+        <TileGrid className="lg:grid-cols-3">
           {serviceKeys.map((key, i) => (
-            <li key={key} className="border-b border-line sm:[&:nth-child(odd)]:border-e">
-              <Link href={href(locale, key)} className="group flex h-full flex-col p-7 sm:p-9">
-                <span className="font-mono text-[15px] font-medium tabular-nums text-brand-300">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h2 className="u-balance mt-4 text-xl font-semibold text-ink transition-colors group-hover:text-brand-600 sm:text-[1.4rem]">
-                  {t.servicesIndex.cards[i].title}
-                </h2>
-                <p className="u-pretty mt-4 grow text-[15.5px] leading-relaxed text-muted">
-                  {t.servicesIndex.cards[i].body}
-                </p>
-                <span className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-brand-600">
-                  {t.common.exploreService}
-                  <ArrowIcon className="transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
-                </span>
-              </Link>
-            </li>
+            <Tile
+              key={key}
+              href={href(locale, key)}
+              title={t.servicesIndex.cards[i].title}
+              body={t.servicesIndex.cards[i].body}
+              locale={locale}
+              icon={serviceIcons[key]}
+              variant={layout[i].photo ? "photo" : key === "certitrack" ? "accent" : "plain"}
+              image={layout[i].photo ? serviceArt[key] : undefined}
+              minHeight={layout[i].minHeight}
+              className={layout[i].className}
+            />
           ))}
-        </ul>
-      </Section>
+        </TileGrid>
+      </Band>
 
-      <Section tone="surface">
-        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+      <Band tone="navy">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <h2 className="u-balance text-3xl font-semibold text-ink sm:text-4xl">
+            <h2 className="u-balance mt-6 text-[1.9rem] font-semibold sm:text-[2.4rem]">
               {t.servicesIndex.combined.title}
             </h2>
           </div>
-          <p className="u-pretty text-[16.5px] leading-relaxed text-ink-soft lg:col-span-7">
+          <p className="u-pretty text-[17px] leading-relaxed text-white/70 lg:col-span-7">
             {t.servicesIndex.combined.body}
           </p>
         </div>
-      </Section>
+      </Band>
 
       <CtaBand locale={locale} />
     </>

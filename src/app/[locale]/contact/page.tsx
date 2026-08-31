@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { ContactForm } from "@/components/contact-form";
-import { PageHero } from "@/components/page-hero";
+import { ContactForm } from "@/components/site/contact-form";
+import { PageHero } from "@/components/site/page-hero";
+import { Band } from "@/components/site/ui";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/json-ld";
-import { Section } from "@/components/ui";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
 import { buildMetadata, keywordSets } from "@/lib/seo";
@@ -17,6 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(locale)) return {};
   const t = getDictionary(locale);
   return buildMetadata({
+    version: "main",
     locale,
     route: "contact",
     title: t.seo.contact.title,
@@ -41,7 +42,7 @@ export default async function ContactPage({ params }: Props) {
     <>
       <JsonLd
         data={[
-          breadcrumbSchema(locale, [
+          breadcrumbSchema("main", locale, [
             { name: t.nav.home, route: "home" },
             { name: t.nav.contact, route: "contact" },
           ]),
@@ -57,27 +58,29 @@ export default async function ContactPage({ params }: Props) {
         ]}
         title={t.contact.hero.title}
         lead={t.contact.hero.lead}
+        image="hardHat"
       />
 
-      <Section>
+      <Band>
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
-            <h2 className="text-2xl font-semibold text-ink">{t.contact.form.title}</h2>
-            <div className="mt-8">
+            <div className="mt-10">
               <ContactForm t={t.contact.form} locale={locale} />
             </div>
           </div>
 
           <aside className="lg:col-span-5 lg:ps-8">
-            <div className="rounded-md border border-line bg-surface p-8">
-              <h2 className="text-lg font-semibold text-ink">{t.contact.direct.title}</h2>
-              <dl className="mt-6 space-y-5">
+            <div className="bg-brand-900 p-8 text-white lg:p-9">
+              <h2 className="text-[1.2rem] font-semibold">{t.contact.direct.title}</h2>
+              <dl className="mt-8 space-y-6">
                 {details.map((item) => (
                   <div key={item.label}>
-                    <dt className="text-[13px] font-semibold text-muted">{item.label}</dt>
-                    <dd className="mt-1.5 text-[15px] font-medium text-ink">
+                    <dt className="text-[11.5px] font-semibold tracking-[0.14em] text-white/45 uppercase">
+                      {item.label}
+                    </dt>
+                    <dd className="mt-2 text-[15.5px] font-medium">
                       {item.href ? (
-                        <a href={item.href} className="underline-offset-4 hover:text-brand-600 hover:underline">
+                        <a href={item.href} className="underline-offset-4 hover:underline">
                           {item.isolate ? <bdi dir="ltr">{item.value}</bdi> : item.value}
                         </a>
                       ) : (
@@ -87,8 +90,10 @@ export default async function ContactPage({ params }: Props) {
                   </div>
                 ))}
                 <div>
-                  <dt className="text-[13px] font-semibold text-muted">{t.contact.direct.officesLabel}</dt>
-                  <dd className="mt-1.5 space-y-1 text-[15px] text-ink">
+                  <dt className="text-[11.5px] font-semibold tracking-[0.14em] text-white/45 uppercase">
+                    {t.contact.direct.officesLabel}
+                  </dt>
+                  <dd className="mt-2 space-y-1 text-[15.5px] text-white/85">
                     {site.addresses.map((address) => (
                       <p key={address.id}>{address.lines.join(", ")}</p>
                     ))}
@@ -97,20 +102,22 @@ export default async function ContactPage({ params }: Props) {
               </dl>
             </div>
 
-            <div className="mt-10">
-              <h2 className="text-lg font-semibold text-ink">{t.contact.faq.title}</h2>
+            <div className="mt-12">
+              <h2 className="text-[11.5px] font-semibold tracking-[0.16em] text-brand-500 uppercase">
+                {t.contact.faq.title}
+              </h2>
               <dl className="mt-6 divide-y divide-line border-t border-line">
                 {t.contact.faq.items.map((item) => (
-                  <div key={item.q} className="py-5">
-                    <dt className="text-[15px] font-semibold text-ink">{item.q}</dt>
-                    <dd className="u-pretty mt-2 text-[14.5px] leading-relaxed text-muted">{item.a}</dd>
+                  <div key={item.q} className="py-6">
+                    <dt className="text-[15.5px] font-semibold text-ink">{item.q}</dt>
+                    <dd className="u-pretty mt-2.5 text-[14.5px] leading-relaxed text-muted">{item.a}</dd>
                   </div>
                 ))}
               </dl>
             </div>
           </aside>
         </div>
-      </Section>
+      </Band>
     </>
   );
 }

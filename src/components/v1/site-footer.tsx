@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { ReispeqLogo } from "./logo";
+import { ReispeqLogo } from "../logo";
 import { getDictionary } from "@/i18n/dictionaries";
 import type { Locale } from "@/i18n/config";
-import { href, serviceKeys } from "@/lib/routes";
+import { href } from "@/lib/links/v1";
+import { serviceKeys } from "@/lib/routes";
 import { site } from "@/lib/site";
 
 export function SiteFooter({ locale }: { locale: Locale }) {
@@ -37,7 +38,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             </p>
             <p className="mt-8 text-[13px] font-semibold text-white">{t.footer.regionsTitle}</p>
             <ul className="mt-3 flex max-w-sm flex-wrap gap-x-5 gap-y-1.5 text-[14px] text-white/60">
-              {t.regions.items.map((region) => (
+              {t.ui.regions.groups.flatMap((g) => g.items).map((region) => (
                 <li key={region}>{region}</li>
               ))}
             </ul>

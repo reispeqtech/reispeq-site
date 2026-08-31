@@ -4,40 +4,9 @@ import { useState, type FormEvent } from "react";
 import type { Dictionary } from "@/i18n/en";
 import type { Locale } from "@/i18n/config";
 import { site } from "@/lib/site";
+import { isHoneypotTripped, sendEnquiry, validateEnquiry, type EnquiryData } from "@/lib/contact";
 
 type Status = "idle" | "submitting" | "success" | "error";
-
-/**
- * The site is a static export, so there is no server of ours to post to.
- * Enquiries go straight to a form endpoint you own:
- *
- *   NEXT_PUBLIC_CONTACT_ENDPOINT   e.g. https://formspree.io/f/xxxxxxx
- *                                  or   https://api.web3forms.com/submit
- *   NEXT_PUBLIC_CONTACT_ACCESS_KEY optional — Web3Forms requires this
- *
- * With neither set, the form composes a pre-filled email in the visitor's mail
- * client instead of failing silently.
- */
-const ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT?.trim() || undefined;
-const ACCESS_KEY = process.env.NEXT_PUBLIC_CONTACT_ACCESS_KEY?.trim() || undefined;
-
-function mailtoFallback(data: Record<string, string>) {
-  const body = [
-    `Name: ${data.name}`,
-    `Company: ${data.company}`,
-    `Email: ${data.email}`,
-    data.phone ? `Phone: ${data.phone}` : "",
-    `Country: ${data.country}`,
-    `Interest: ${data.interest}`,
-    "",
-    data.message,
-  ]
-    .filter(Boolean)
-    .join("\n");
-  return `mailto:${site.email}?subject=${encodeURIComponent(
-    `Website enquiry — ${data.company || data.name}`,
-  )}&body=${encodeURIComponent(body)}`;
-}
 
 const field =
   "w-full rounded-sm border border-line bg-white px-3.5 py-3 text-[15px] text-ink transition-colors placeholder:text-muted/60 focus:border-brand-400 focus:outline-none focus-visible:outline-none";
@@ -50,44 +19,20 @@ export function ContactForm({ t, locale }: { t: Dictionary["contact"]["form"]; l
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+    const data = Object.fromEntries(new FormData(form).entries()) as EnquiryData;
 
-    const nextErrors: Record<string, string> = {};
-    if (!data.name?.trim()) nextErrors.name = t.required;
-    if (!data.company?.trim()) nextErrors.company = t.required;
-    if (!data.email?.trim()) nextErrors.email = t.required;
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email)) nextErrors.email = t.invalidEmail;
-    if (!data.message?.trim()) nextErrors.message = t.required;
+    const nextErrors = validateEnquiry(data, t);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    // Honeypot: a real person never fills this in.
-    if (data.company_website) {
+    if (isHoneypotTripped(data)) {
       setStatus("success");
-      return;
-    }
-
-    if (!ENDPOINT) {
-      window.location.href = mailtoFallback(data);
-      setStatus("success");
-      form.reset();
       return;
     }
 
     setStatus("submitting");
     try {
-      const response = await fetch(ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          ...data,
-          locale,
-          source: site.domain,
-          subject: `Website enquiry — ${data.company || data.name}`,
-          ...(ACCESS_KEY ? { access_key: ACCESS_KEY } : {}),
-        }),
-      });
-      if (!response.ok) throw new Error(String(response.status));
+      await sendEnquiry(data, locale);
       setStatus("success");
       form.reset();
     } catch {

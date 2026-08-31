@@ -1,3 +1,17 @@
+/**
+ * All English copy.
+ *
+ * The source of truth for this text is the client's own write-up,
+ * `_brief/Reispeq_Technologies_LLC_Website_Writeup.docx`. Where that document
+ * gives wording — the positioning statement, the service descriptions, the five
+ * reasons to choose Reispeq, the call to action — it is used close to verbatim
+ * rather than paraphrased into something more quotable. Copy that reads as
+ * though it were written for the pleasure of writing it is the thing this file
+ * is deliberately not.
+ *
+ * `ar.ts` is type-checked against this file: add a key here and the build fails
+ * until the Arabic exists.
+ */
 export const en = {
   nav: {
     home: "Home",
@@ -29,123 +43,112 @@ export const en = {
     relatedServices: "Related services",
     breadcrumb: "Breadcrumb",
     scopeNote:
-      "Scope, duration and reporting format are agreed with you before mobilisation — no open-ended engagements.",
-  },
-
-  regions: {
-    items: ["Oman", "UAE", "Saudi Arabia", "Qatar", "Kuwait", "Bahrain"],
+      "Scope, duration and reporting format are agreed with you in writing before work begins.",
   },
 
   home: {
     hero: {
-      title: "Operational assurance, built into software.",
+      title: "Solutions that help companies operate with confidence.",
       lead:
-        "Reispeq Technologies LLC builds purpose-made applications and delivers auditing, inspection and technical investigation services for oilfield and industrial operators across the Gulf — so equipment, certificates and quality records hold up when they are checked.",
+        "Reispeq Technologies LLC provides technology-driven software solutions, auditing support and inspection services for companies that require stronger control, better compliance and reliable operational assurance. We help customers transform business challenges into practical digital tools and professional technical services.",
       primaryCta: "Request a consultation",
       secondaryCta: "See CertiTrack Plus",
       stats: [
-        { value: "API Q1 / Q2", label: "Audit readiness and gap assessment support" },
+        { value: "API Q1 & API Q2", label: "Audit support, gap assessment and readiness reviews" },
         { value: "Rig & workover", label: "Equipment inspection and certification verification" },
-        { value: "GCC", label: "Oman, UAE and the wider Gulf" },
+        { value: "Middle East & Africa", label: "Serving oilfield and industrial operators" },
       ],
     },
-    panel: {
-      title: "Certification register",
-      subtitle: "CertiTrack Plus · live view",
-      columns: { asset: "Asset", cert: "Certificate", due: "Expiry", status: "Status" },
-      rows: [
-        { asset: "Elevator 150 T", cert: "LEEA-0442", due: "18 Nov", status: "valid" },
-        { asset: "Tong — power", cert: "API-7K-1187", due: "02 Sep", status: "due" },
-        { asset: "Sling set 4-leg", cert: "LG-2231", due: "11 Aug", status: "expired" },
-        { asset: "BOP ram 13-5/8", cert: "API-16A-0067", due: "27 Jan", status: "valid" },
-      ],
-      statuses: { valid: "Valid", due: "Due soon", expired: "Expired" },
-      footnote: "Expiry alerts, inspection history and evidence in one controlled register.",
-    },
+
     intro: {
-      title: "More than a service provider.",
+      title: "More than a standard service provider.",
       body: [
-        "Most operational problems are not mysteries. They are gaps — a certificate nobody renewed, a corrective action that was closed without evidence, an inspection record that lives in someone's inbox. Those gaps stay invisible until an audit, an incident or a client verification puts them under a light.",
-        "Reispeq closes that distance from both sides. We build the software that makes records traceable and expiry dates impossible to miss, and we carry out the audits, inspections and investigations that test whether the records reflect reality.",
+        "Reispeq Technologies LLC is a professional services company built around the practical needs of modern industrial customers. We combine software development capability with quality assurance, auditing, inspection and technical investigation experience — helping customers improve operational control, strengthen compliance, reduce service interruptions and solve business challenges with reliable digital and technical solutions.",
+        "The company is designed to support customers who require more than a standard service provider. We understand the challenge, identify the gaps affecting performance or compliance, and deliver tailored solutions that are practical, traceable and suitable for real operating conditions.",
       ],
     },
+
     services: {
-      title: "Two capabilities, one discipline.",
+      title: "Two core capabilities, one company.",
       lead:
-        "Digital tools and technical assurance, delivered by people who have worked inside quality management systems rather than around them.",
+        "Software development on one side, auditing and inspection on the other — delivered by the same team, so the tools we build and the assurance work we carry out are informed by each other.",
     },
+
     method: {
-      title: "A short, evidence-led engagement.",
+      title: "How an engagement runs.",
       steps: [
         {
-          title: "Understand the gap",
+          title: "Understand the challenge",
           body:
-            "We walk the process with you — workflow, data, approvals, who signs what. The output is a written scope, not an assumption.",
+            "We start with your workflow, data, approvals and expected outcomes, so the scope is written against how the work is actually done.",
         },
         {
-          title: "Assess against the requirement",
+          title: "Identify the gaps",
           body:
-            "Findings are tied to a clause, a specification or an operating condition, with objective evidence attached. No opinion-only findings.",
+            "We establish what is affecting performance or compliance, recorded against a clause, a specification or an operating condition.",
         },
         {
-          title: "Deliver the solution",
+          title: "Deliver a tailored solution",
           body:
-            "An application, an audit report or an inspection record — structured so a third party can follow it without a briefing.",
+            "An application, an audit report or an inspection record — built for your process and for real operating conditions rather than from a template.",
         },
         {
-          title: "Verify and close",
+          title: "Follow up and verify",
           body:
-            "Corrective actions are followed to effectiveness, not just to a closing date. You keep the evidence trail.",
+            "Corrective actions are tracked to closure and verified for effectiveness, so the same finding does not return next cycle.",
         },
       ],
     },
+
     product: {
       title: "CertiTrack Plus",
       lead:
-        "A certification and compliance register built for oilfield operators and service companies. It answers one question that costs real money when the answer is wrong: is this equipment certified, right now, and can you prove it?",
+        "An application developed by Reispeq Technologies LLC to support oilfield companies in managing equipment certificates, inspection history, expiry alerts, compliance records and related quality assurance activities. It helps customers maintain clear visibility of certified assets and reduces the risk of expired, missing or uncontrolled records affecting operations.",
       bullets: [
-        "Equipment certificates with expiry alerts before they bite",
-        "Inspection history and supporting evidence held against the asset",
-        "Action tracking with owners, due dates and closure evidence",
-        "Dashboard reporting for readiness before an audit or a client verification",
+        "Equipment certificates held with their issuing body, scope and validity dates",
+        "Expiry alerts ahead of the date, so renewals are planned rather than discovered",
+        "Inspection status and historical records kept against the asset",
+        "Action follow-up with owners, due dates and closure evidence",
+        "Compliance readiness reporting for audits and customer verification",
       ],
       cta: "Explore CertiTrack Plus",
       externalCta: "Visit certitrackplus.com",
     },
+
     why: {
-      title: "What clients get that they were not getting before.",
+      title: "Why customers choose Reispeq Technologies.",
       items: [
         {
-          title: "Practical over theoretical",
+          title: "Practical solutions",
           body:
-            "Recommendations that can be executed with the crew, budget and shutdown window you actually have.",
+            "We focus on solutions that can be applied in real operations, not only theoretical recommendations.",
         },
         {
-          title: "Industry-native",
+          title: "Industry understanding",
           body:
-            "Oilfield, industrial and technical operations — where equipment assurance and compliance carry real consequences.",
+            "The company serves oilfield, industrial and technical customers that require strong compliance and equipment assurance.",
         },
         {
-          title: "Software and assurance together",
+          title: "Digital and technical capability",
           body:
-            "The rare combination: developers who understand a nonconformity, and auditors who understand a data model.",
+            "Software development combined with auditing and inspection knowledge, creating a strong link between technology and operational assurance.",
         },
         {
-          title: "Tailored, not templated",
-          body:
-            "Every scope is written against your process. We do not resell somebody else's checklist.",
+          title: "Customer-focused approach",
+          body: "Each service is tailored to the customer's challenge, process and required outcome.",
         },
         {
-          title: "Traceability by default",
+          title: "Traceability and control",
           body:
-            "Records, ownership, evidence and decision history — the things that make an audit uneventful.",
+            "Our services are designed to improve records, visibility, accountability and decision-making.",
         },
       ],
     },
+
     cta: {
-      title: "Tell us where the gap is.",
+      title: "Partner with Reispeq Technologies.",
       body:
-        "A short call is usually enough to tell whether the answer is an application, an audit, an inspection — or nothing at all. We will say so either way.",
+        "Build smarter systems, strengthen compliance and improve equipment assurance. Contact us to discuss how our software development, auditing and inspection services can support your business.",
       primary: "Request a consultation",
       secondary: "Email us directly",
     },
@@ -153,54 +156,55 @@ export const en = {
 
   about: {
     hero: {
-      title: "A technology and quality-assurance company for demanding operations.",
+      title: "A technology and quality-assurance company for demanding technical environments.",
       lead:
-        "Reispeq Technologies LLC combines software development capability with auditing, inspection and technical investigation experience — serving customers who need operational control they can evidence.",
+        "Reispeq Technologies LLC is a professional services company focused on digital transformation, quality assurance, auditing and inspection support. We work with customers to understand their operational challenges and deliver solutions that improve traceability, compliance, equipment reliability and decision-making.",
     },
     body: [
       {
-        title: "What we are built around",
+        title: "What the company is built around",
         paragraphs: [
-          "Reispeq Technologies LLC is a professional services company built around the practical needs of modern industrial customers. We help clients improve operational control, strengthen compliance, reduce service interruptions, and solve business problems with reliable digital and technical solutions.",
-          "The company is designed for customers who require more than a standard supplier. We start by understanding the challenge, identify the gaps affecting performance or compliance, and deliver solutions that are practical, traceable and suitable for real operating conditions — offshore, on a rig floor, in a workshop or in a QA office.",
+          "Reispeq Technologies LLC is built around the practical needs of modern industrial customers. The company combines software development capability with quality assurance, auditing, inspection and technical investigation experience, and exists to help customers improve operational control, strengthen compliance, reduce service interruptions and solve business challenges through reliable digital and technical solutions.",
+          "We are designed to support customers who require more than a standard service provider: we aim to understand each customer's challenges, identify the gaps affecting performance or compliance, and deliver tailored solutions that are practical, traceable and suitable for real operating conditions.",
         ],
       },
       {
-        title: "Where our two capabilities meet",
+        title: "Where the two capabilities meet",
         paragraphs: [
           "Software development and quality assurance are usually bought from different suppliers who never speak to each other. The result is familiar: a system that stores data nobody audits, or an audit finding that no system will ever prevent from recurring.",
-          "We work across both. When we build an application, it is shaped by what an auditor will ask for. When we audit, we can see which findings are process problems and which are simply the absence of a usable tool.",
+          "Reispeq works across both. When we build an application, it is shaped by what an auditor will ask for. When we audit, we can see which findings are process problems and which are simply the absence of a usable tool.",
         ],
       },
       {
-        title: "The markets we serve",
+        title: "The customers we serve",
         paragraphs: [
-          "Our focus is the Gulf — Oman, the United Arab Emirates, Saudi Arabia, Qatar, Kuwait and Bahrain — where oilfield service companies, drilling contractors, equipment owners and industrial operators face concentrated certification, inspection and client-verification demands.",
-          "We work in English and Arabic, and our deliverables are prepared to be read by the operator, the client representative and the third-party auditor alike.",
+          "Our services are designed for customers operating in demanding industrial and oilfield environments, where quality, safety and control are essential — drilling contractors, oilfield service companies, equipment owners and workshops, and the QA/QC and HSE functions responsible for their compliance.",
+          "We serve customers across the Middle East and Africa, and work in English and Arabic. Deliverables are prepared to be read by the operator, the customer representative and the third-party auditor alike.",
         ],
       },
     ],
     values: {
-      title: "How we hold ourselves to it.",
+      title: "The basis we work from.",
       items: [
         {
           title: "Objective evidence",
-          body: "A finding without evidence is an opinion. We record what we saw, where and when.",
+          body:
+            "Findings record what was seen, where and when, so a reviewer who was not present can follow them.",
         },
         {
-          title: "Independence",
+          title: "Process effectiveness",
           body:
-            "Our inspection and investigation reporting is written to stand on its own, including when the conclusion is inconvenient.",
+            "We assess whether a process works in practice, not only whether it has been documented.",
         },
         {
-          title: "Confidentiality",
+          title: "Risk awareness",
           body:
-            "Client data, failure evidence and audit findings stay with the client. We do not reuse them as case studies without written consent.",
+            "Findings are prioritised by the risk they carry to operations, safety and compliance.",
         },
         {
-          title: "Clear scope",
+          title: "Practical improvement",
           body:
-            "What is included, what is excluded, and what the deliverable looks like — agreed in writing before we mobilise.",
+            "Recommendations are written to be executed with the crew, budget and shutdown window you actually have.",
         },
       ],
     },
@@ -210,48 +214,64 @@ export const en = {
     hero: {
       title: "Application and software development",
       lead:
-        "Purpose-built digital tools for specific business, operational and compliance problems — designed around your workflow, your approvals and your evidence requirements.",
+        "Practical digital tools for specific business, operational and compliance challenges — designed around your workflow, your approvals and your reporting requirements.",
     },
     intro: [
-      "Reispeq develops customised software that turns complex operational requirements into controlled, usable systems. We start with the pain point: where the follow-up is manual, where the data is re-keyed, where approvals stall, and where an auditor would struggle to reconstruct what happened.",
-      "From there we work with experienced developers to build applications that improve visibility, reduce manual chasing, strengthen traceability and support better decisions — without forcing your team into a process that does not match how the work is actually done.",
+      "Reispeq Technologies LLC develops customised software applications that convert complex customer requirements into simple, controlled and user-friendly digital solutions. Our development approach starts by understanding the customer's pain points, workflow, data requirements, approval process and expected outcomes.",
+      "From that understanding, we work with experienced developers to construct applications that improve visibility, reduce manual follow-up, enhance traceability and support better decision-making — without forcing your team into a process that does not match how the work is actually done.",
     ],
     capabilities: {
-      title: "Capabilities",
+      title: "What we build",
       items: [
         {
           title: "Custom application development",
-          body: "Built against your specific challenge rather than configured from a generic product.",
+          body: "Built around your specific challenge rather than configured from a generic product.",
         },
         {
           title: "Workflow automation",
-          body: "Routing, approvals, reminders and escalation for processes currently held together by email.",
+          body:
+            "Routing, approvals, reminders and escalation for processes currently held together by email.",
         },
         {
           title: "Certification and compliance platforms",
-          body: "Registers for certificates, inspections, calibration and equipment status with controlled history.",
+          body:
+            "Certification, inspection and compliance management with controlled history and evidence.",
         },
         {
-          title: "Dashboard and operational reporting",
-          body: "Readiness, exposure and overdue-action views for management and for client verification.",
+          title: "Dashboard reporting",
+          body:
+            "Operational visibility for management, and readiness views for audits and customer verification.",
         },
         {
           title: "Action tracking and document control",
           body: "Owners, due dates, closure evidence, revision control and access rules.",
         },
         {
-          title: "Integration and data migration",
-          body: "Moving existing spreadsheets and legacy registers into a structure that can be maintained.",
+          title: "Oilfield-focused applications",
+          body:
+            "Purpose-built tools for the sector, developed from real operational challenges — CertiTrack Plus among them.",
         },
       ],
     },
     process: {
       title: "How a build runs",
       steps: [
-        { title: "Discovery", body: "Workflow, data, approvals, users and reporting needs, documented as a scope." },
-        { title: "Design", body: "Screens, data model and permissions agreed before development starts." },
-        { title: "Build and test", body: "Iterative delivery with your team reviewing working software, not documents." },
-        { title: "Deploy and support", body: "Migration, user training, handover documentation and ongoing enhancement." },
+        {
+          title: "Understand",
+          body: "Pain points, workflow, data, approvals and expected outcomes, documented as a scope.",
+        },
+        {
+          title: "Design",
+          body: "Screens, data model and permissions agreed before development starts.",
+        },
+        {
+          title: "Build and test",
+          body: "Iterative delivery, with your team reviewing working software rather than documents.",
+        },
+        {
+          title: "Deploy and enhance",
+          body: "Migration, user training, handover documentation and ongoing enhancement.",
+        },
       ],
     },
     outcomes: {
@@ -266,7 +286,7 @@ export const en = {
     proof: {
       title: "A worked example",
       body:
-        "CertiTrack Plus began as exactly this kind of engagement: an oilfield certification problem that spreadsheets could not hold. It now runs as a product.",
+        "CertiTrack Plus began as exactly this kind of engagement: an oilfield certification problem that spreadsheets could not hold. It now runs as a product, and reflects the company's ability to develop targeted software from a real operational challenge.",
       cta: "See CertiTrack Plus",
     },
   },
@@ -275,15 +295,15 @@ export const en = {
     hero: {
       title: "CertiTrack Plus",
       lead:
-        "A controlled platform for equipment certification, inspection history, expiry alerts and compliance readiness — developed by Reispeq for oilfield and industrial operators.",
+        "A controlled platform for equipment certification, inspection history, expiry alerts and compliance readiness — developed by Reispeq Technologies LLC for oilfield and industrial companies.",
       primaryCta: "Request a demo",
       secondaryCta: "Visit certitrackplus.com",
     },
     problem: {
-      title: "Certificates fail quietly.",
+      title: "Expired, missing or uncontrolled records.",
       body: [
-        "Equipment certification rarely fails loudly. A certificate expires while the asset stays in service. An inspection record exists but nobody can find the evidence behind it. A register is accurate on the day it was built and drifts every week afterwards.",
-        "The cost lands later — a client verification that stops a job, an asset quarantined at the wellsite, a finding in an audit that should never have been open.",
+        "Equipment certification is rarely lost all at once. A certificate expires while the asset stays in service. An inspection record exists but the evidence behind it cannot be found. A register is accurate on the day it is built and drifts every week afterwards.",
+        "The cost lands later: a customer verification that stops a job, an asset quarantined at the wellsite, or an audit finding that should never have been open. CertiTrack Plus exists to close that gap.",
       ],
     },
     features: {
@@ -302,20 +322,22 @@ export const en = {
         {
           title: "Inspection history",
           body:
-            "A full chronological record per asset — inspections, findings, repairs and re-certification, with evidence attached.",
+            "A chronological record per asset — inspections, findings, repairs and re-certification, with evidence attached.",
         },
         {
-          title: "Action tracking",
-          body: "Findings raised, assigned, evidenced and closed, with visibility on what is overdue and with whom.",
+          title: "Action follow-up",
+          body:
+            "Findings raised, assigned, evidenced and closed, with visibility on what is overdue and with whom.",
         },
         {
           title: "Compliance readiness",
           body:
-            "Dashboards showing exposure by asset, category, location and status — before an auditor or a client asks.",
+            "Dashboards showing exposure by asset, category, location and status — before an auditor or a customer asks.",
         },
         {
           title: "Controlled access",
-          body: "Role-based permissions so QA, operations, the workshop and management each see the right view.",
+          body:
+            "Role-based permissions, so QA, operations, the workshop and management each see the right view.",
         },
       ],
     },
@@ -325,7 +347,7 @@ export const en = {
         "Oilfield service companies managing certified rental and operational equipment",
         "Drilling contractors and workover operators tracking rig equipment certification",
         "Equipment owners and workshops with lifting gear, pressure equipment and calibration obligations",
-        "QA/QC and HSE functions responsible for audit and client-verification readiness",
+        "QA/QC and HSE functions responsible for audit and customer-verification readiness",
       ],
     },
     outcome: {
@@ -342,10 +364,10 @@ export const en = {
         "API Q1 and API Q2 audit support, internal audits, supplier assessments and readiness reviews — evidence-led, and written to be usable after we leave.",
     },
     scopeNote:
-      "Reispeq provides audit support, preparation and independent assessment services. We are not a certification body and do not issue API certificates.",
+      "Reispeq Technologies LLC provides audit support, preparation and independent assessment services. We are not a certification body and do not issue API certificates.",
     intro: [
-      "Reispeq supports customers through API Spec Q1 and API Spec Q2 audit activity: preparation, gap assessment, internal audit execution, supplier and vendor assessment, process review, corrective action follow-up and readiness verification.",
-      "The approach is built on objective evidence, process effectiveness and risk awareness. The goal is not a clean report — it is a quality management system that stays compliant after the certification audit is over.",
+      "Reispeq Technologies LLC supports customers through official API Q1 and API Q2 audit activity: audit preparation, gap assessment, internal audit support, vendor assessment, process review, corrective action follow-up and readiness verification. The objective is to help customers strengthen their quality management systems and maintain compliance with applicable API requirements.",
+      "The approach is based on objective evidence, process effectiveness, risk awareness and practical improvement. We help customers identify weaknesses, understand nonconformities, define corrective actions, and improve the sustainability of their quality management practices.",
     ],
     services: {
       title: "Audit support we provide",
@@ -361,7 +383,7 @@ export const en = {
             "Assessment against API Spec Q2 for service supply organisations, covering service execution, contingency planning, competency and risk.",
         },
         {
-          title: "Internal audit execution",
+          title: "Internal audit support",
           body:
             "Internal audits run to your programme, with trained auditors, so the schedule is met and the findings are worth something.",
         },
@@ -373,7 +395,7 @@ export const en = {
         {
           title: "Process and system review",
           body:
-            "Where the system is technically compliant but operationally ineffective — the audits that surface repeat findings.",
+            "Where the system is technically compliant but operationally ineffective — the reviews that surface repeat findings.",
         },
         {
           title: "Corrective action follow-up",
@@ -397,11 +419,11 @@ export const en = {
     hero: {
       title: "Inspection services",
       lead:
-        "Independent equipment inspection for oilfield and industrial operations — condition, documentation and compliance verified before the equipment carries a load or a pressure.",
+        "Independent inspection of oilfield and industrial equipment — condition, documentation and compliance verified before the equipment carries a load or a pressure.",
     },
     intro: [
-      "Reispeq provides inspection services that support safe and reliable operations: visual examination, documentation review, condition assessment, compliance verification, inspection reporting and recommendations for corrective or preventive action.",
-      "The service suits companies that need independent verification of equipment condition — before use, after repair, during vendor evaluation, or as part of a routine quality assurance programme.",
+      "Reispeq Technologies LLC provides inspection services for oilfield and industrial equipment to support safe and reliable operations: visual examination, documentation review, condition assessment, compliance verification, inspection reporting and recommendations for corrective or preventive action.",
+      "The service suits companies that require independent verification of equipment condition — before use, after repair, during vendor evaluation, or as part of a routine quality assurance programme.",
     ],
     services: {
       title: "Inspection scopes",
@@ -429,7 +451,7 @@ export const en = {
         {
           title: "Post-repair verification",
           body:
-            "Independent confirmation that repair scope was completed and that re-certification is supported by evidence.",
+            "Independent confirmation that the repair scope was completed and that re-certification is supported by evidence.",
         },
         {
           title: "Vendor and rental fleet evaluation",
@@ -441,10 +463,10 @@ export const en = {
     deliverables: {
       title: "What you receive",
       items: [
-        "An inspection report with findings, photographic evidence and clear status per item",
+        "An inspection report with findings, photographic evidence and a clear status per item",
         "Certification verification results with any gaps identified",
         "Recommendations for corrective or preventive action, prioritised by risk",
-        "A record structured to support your own client verification and audit obligations",
+        "A record structured to support your own customer verification and audit obligations",
       ],
     },
   },
@@ -453,26 +475,29 @@ export const en = {
     hero: {
       title: "Damage beyond repair investigations",
       lead:
-        "Structured technical investigation of failed or damaged equipment — evidence collected, causes assessed and a report your client, insurer or supplier can act on.",
+        "Structured technical investigation of failed or damaged equipment — evidence collected, causes assessed, and a report your customer, insurer or supplier can act on.",
     },
     intro: [
-      "When equipment is damaged beyond repair, the commercial question follows immediately: what caused it, and who carries the cost? Reispeq supports customers with a structured investigation — reviewing the failed equipment, collecting relevant evidence, assessing possible causes and preparing a technical report.",
-      "The purpose is to establish whether the damage resulted from wear, misuse, improper maintenance, a manufacturing defect, operational overload, handling damage or another contributing factor — and to say so clearly, with the evidence attached.",
+      "Reispeq Technologies LLC supports customers with damage beyond repair investigations: reviewing the failed or damaged equipment, collecting relevant evidence, assessing possible causes and preparing a structured technical report.",
+      "The purpose is to help customers understand whether the damage resulted from wear, misuse, improper maintenance, a manufacturing defect, operational overload, handling damage or another contributing factor — and to state that clearly, with the evidence attached.",
     ],
     services: {
       title: "What the investigation covers",
       items: [
         {
           title: "Evidence collection",
-          body: "Physical examination, photographic record, dimensional and condition data captured before anything is disturbed.",
+          body:
+            "Physical examination, photographic record, and dimensional and condition data captured before anything is disturbed.",
         },
         {
           title: "Documentation review",
-          body: "Certification, maintenance and inspection history, operating records and previous findings on the asset.",
+          body:
+            "Certification, maintenance and inspection history, operating records and previous findings on the asset.",
         },
         {
           title: "Cause assessment",
-          body: "Failure mode assessed against operating conditions, applicable specification and observed evidence.",
+          body:
+            "Failure mode assessed against operating conditions, applicable specification and observed evidence.",
         },
         {
           title: "Technical report",
@@ -483,10 +508,10 @@ export const en = {
     uses: {
       title: "Where the report is used",
       items: [
+        "Decision-making on repair, replacement and future prevention",
         "Insurance and claim discussions",
         "Supplier, manufacturer and warranty communication",
         "Internal corrective action and prevention planning",
-        "Client and contractual notification requirements",
       ],
     },
     note: "Reports are written to be read by a technical reviewer who was not present. Conclusions are stated with their basis, and uncertainty is stated as uncertainty.",
@@ -502,33 +527,33 @@ export const en = {
       {
         title: "Application and software development",
         body:
-          "Custom applications, workflow automation, certification registers, dashboards and document control — built around your process rather than configured from a generic product.",
+          "Custom applications, workflow automation, certification platforms, dashboard reporting and document control — built around your process rather than configured from a generic product.",
       },
       {
         title: "CertiTrack Plus",
         body:
-          "Our certification and compliance platform for oilfield and industrial operators: certificates, expiry alerts, inspection history, action tracking and readiness reporting.",
+          "Our application for oilfield certification: equipment certificates, expiry alerts, inspection history, action follow-up and compliance readiness.",
       },
       {
         title: "Auditing services",
         body:
-          "API Spec Q1 and Q2 readiness and gap assessment, internal audit execution, supplier assessment, process review and corrective action follow-up.",
+          "API Q1 and API Q2 audit support, gap assessment, internal audits, supplier assessment, process review and corrective action follow-up.",
       },
       {
         title: "Inspection services",
         body:
-          "Independent equipment inspection, rig and workover unit inspection, certification verification, pre-mobilisation acceptance and post-repair verification.",
+          "Equipment inspection, rig and workover unit inspection, certification verification, pre-mobilisation acceptance and post-repair verification.",
       },
       {
         title: "Damage beyond repair investigations",
         body:
-          "Structured technical investigation of failed equipment — evidence collection, documentation review, cause assessment and a report that supports a claim or a corrective action.",
+          "Evidence collection, documentation review, cause assessment and a technical report that supports a claim or a corrective action.",
       },
     ],
     combined: {
       title: "Where the two sides meet",
       body:
-        "An audit finding that keeps returning is usually a tooling problem, not a discipline problem. An application that nobody trusts is usually missing the evidence an auditor would ask for. We are able to fix both ends of that loop, which is the main reason clients keep us on after the first engagement.",
+        "An audit finding that keeps returning is usually a tooling problem, not a discipline problem. An application nobody trusts is usually missing the evidence an auditor would ask for. Reispeq can address both ends of that loop, which is the main reason customers keep us on after the first engagement.",
     },
   },
 
@@ -568,7 +593,21 @@ export const en = {
       errorBody: "Please try again, or email us directly at",
       required: "Required",
       invalidEmail: "Enter a valid email address",
-      countries: ["Oman", "United Arab Emirates", "Saudi Arabia", "Qatar", "Kuwait", "Bahrain", "Iraq", "Other"],
+      countries: [
+        "Oman",
+        "United Arab Emirates",
+        "Saudi Arabia",
+        "Qatar",
+        "Kuwait",
+        "Bahrain",
+        "Iraq",
+        "Egypt",
+        "Libya",
+        "Algeria",
+        "Nigeria",
+        "Angola",
+        "Other",
+      ],
     },
     direct: {
       title: "Direct contact",
@@ -584,8 +623,8 @@ export const en = {
       title: "Before you write",
       items: [
         {
-          q: "Do you work outside Oman and the UAE?",
-          a: "Yes. We serve clients across the GCC — Saudi Arabia, Qatar, Kuwait, Bahrain and Iraq — and mobilise for inspection and audit work on agreed scope.",
+          q: "Which countries do you work in?",
+          a: "We serve customers across the Middle East — Oman, the UAE, Saudi Arabia, Qatar, Kuwait, Bahrain and Iraq — and across North, West and East Africa. Tell us the site and we will confirm what mobilisation looks like.",
         },
         {
           q: "Can you work in Arabic?",
@@ -603,9 +642,68 @@ export const en = {
     },
   },
 
+  /**
+   * Copy the layout needs that does not belong to any one page: shared action
+   * labels, the regions band, and the captions under the product screenshots.
+   */
+  ui: {
+    actions: {
+      viewAll: "All services",
+      open: "Open",
+      menu: "Menu",
+      close: "Close",
+      backHome: "Back to the homepage",
+    },
+    regions: {
+      title: "Where we work.",
+      lead:
+        "Registered in Oman and the United Arab Emirates, serving oilfield and industrial customers across the Middle East and Africa. Mobilisation dates are quoted against your site and your scope.",
+      groups: [
+        {
+          label: "Middle East",
+          items: [
+            "Oman",
+            "United Arab Emirates",
+            "Saudi Arabia",
+            "Qatar",
+            "Kuwait",
+            "Bahrain",
+            "Iraq",
+          ],
+        },
+        { label: "Africa", items: ["North Africa", "West Africa", "East Africa"] },
+      ],
+    },
+    product: {
+      visit: "Open certitrackplus.com",
+      note: "Screens from the CertiTrack Plus application.",
+      screens: {
+        dashboard: {
+          title: "Equipment analytics",
+          caption:
+            "Compliance status across every rig and work unit, so the exposure is visible before an audit asks for it.",
+        },
+        expiry: {
+          title: "Upcoming certificate expiry",
+          caption:
+            "Equipment with certification expiring inside ninety days, ordered by the days remaining.",
+        },
+        workUnits: {
+          title: "Work units",
+          caption:
+            "Every rig and workover unit with its vendor, template and current compliance status.",
+        },
+      },
+    },
+    contactPrompt: {
+      email: "Email",
+      response: "Response",
+    },
+  },
+
   footer: {
     tagline:
-      "Software development, auditing and inspection services for oilfield and industrial operations across the Gulf.",
+      "Software development, auditing and inspection services for oilfield and industrial operations across the Middle East and Africa.",
     company: "Company",
     servicesCol: "Services",
     productCol: "Product",
@@ -628,32 +726,32 @@ export const en = {
     services: {
       title: "Services — Software, Auditing, Inspection & Investigations",
       description:
-        "Custom compliance software, CertiTrack Plus, API Q1/Q2 audit support, equipment and rig inspection, and damage beyond repair investigations for Gulf operators.",
+        "Custom compliance software, CertiTrack Plus, API Q1/Q2 audit support, equipment and rig inspection, and damage beyond repair investigations for operators across the Middle East and Africa.",
     },
     home: {
-      title: "Software, Auditing & Inspection Services | Oman, UAE & the Gulf",
+      title: "Software, Auditing & Inspection Services | Middle East & Africa",
       description:
-        "Reispeq Technologies LLC builds compliance software and delivers API Q1/Q2 audit support, equipment inspection and damage investigations for oilfield and industrial operators in Oman, the UAE and the wider Gulf.",
+        "Reispeq Technologies LLC builds compliance software and delivers API Q1/Q2 audit support, equipment inspection and damage investigations for oilfield and industrial operators across the Middle East and Africa.",
     },
     about: {
       title: "About Reispeq Technologies LLC",
       description:
-        "A technology and quality-assurance company combining software development with auditing, inspection and technical investigation experience for industrial and oilfield clients in the Gulf.",
+        "A technology and quality-assurance company combining software development with auditing, inspection and technical investigation experience for industrial and oilfield customers.",
     },
     software: {
       title: "Custom Application & Software Development for Compliance",
       description:
-        "Custom applications, workflow automation, certification registers, dashboards and document control — built around your process, your approvals and your evidence requirements.",
+        "Custom applications, workflow automation, certification platforms, dashboard reporting and document control — built around your process, your approvals and your reporting requirements.",
     },
     certitrack: {
       title: "CertiTrack Plus — Equipment Certification & Compliance Software",
       description:
-        "CertiTrack Plus manages equipment certificates, expiry alerts, inspection history, action tracking and compliance readiness for oilfield and industrial operators.",
+        "CertiTrack Plus manages equipment certificates, expiry alerts, inspection history, action follow-up and compliance readiness for oilfield and industrial companies.",
     },
     auditing: {
       title: "API Q1 & API Q2 Audit Support and Readiness Reviews",
       description:
-        "API Spec Q1 and Q2 gap assessment, internal audit execution, supplier assessment and corrective action follow-up — evidence-led audit support across the GCC.",
+        "API Spec Q1 and Q2 gap assessment, internal audit support, supplier assessment and corrective action follow-up — evidence-led audit support across the Middle East and Africa.",
     },
     inspection: {
       title: "Equipment, Rig & Workover Unit Inspection Services",
@@ -668,7 +766,7 @@ export const en = {
     contact: {
       title: "Contact Reispeq Technologies LLC",
       description:
-        "Speak to Reispeq about compliance software, API Q1/Q2 audit support, equipment inspection or a damage beyond repair investigation. Serving Oman, the UAE and the GCC.",
+        "Speak to Reispeq about compliance software, API Q1/Q2 audit support, equipment inspection or a damage beyond repair investigation. Serving the Middle East and Africa.",
     },
   },
 };

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowIcon } from "./ui";
 import { getDictionary } from "@/i18n/dictionaries";
 import type { Locale } from "@/i18n/config";
-import { href } from "@/lib/routes";
+import { href } from "@/lib/links/v1";
 import { site } from "@/lib/site";
 
 export function CtaBand({ locale }: { locale: Locale }) {
