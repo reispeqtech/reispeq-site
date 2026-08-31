@@ -239,28 +239,47 @@ export function Ticks({ items, tone = "paper" }: { items: readonly string[]; ton
  * Numbered blocks laid out as a metro grid: 1px gaps over a coloured
  * background, so the rules are the gaps rather than borders on each cell.
  */
-/** Class for "span every column", per column count. Static so Tailwind sees them. */
-const spanFull: Record<2 | 3 | 4, string> = {
-  2: "sm:col-span-2",
-  3: "sm:col-span-2 lg:col-span-3",
-  4: "sm:col-span-2 lg:col-span-4",
-};
-
-/** Class for "span the last two columns", per column count. */
-const spanTwo: Record<2 | 3 | 4, string> = {
-  2: "",
-  3: "lg:col-span-2",
-  4: "lg:col-span-2",
+/*
+ * Static span classes. Tailwind scans source text, so these have to be written
+ * out rather than assembled from a template.
+ */
+const SM_SPAN = "sm:col-span-2";
+const LG_SPAN: Record<number, string> = {
+  1: "lg:col-span-1",
+  2: "lg:col-span-2",
+  3: "lg:col-span-3",
+  4: "lg:col-span-4",
 };
 
 /**
- * Blocks laid out as a metro grid: 1px gaps over a coloured background, so the
- * rules are the gaps rather than borders on each cell.
+ * What the last item must span so the final row has no gap in it.
  *
- * Each block is marked by an icon rather than a number. Most of these lists are
- * sets, not sequences — numbering them implied an order that was never there,
- * and "01 / 02 / 03" down every section is the tell of a template.
+ * A short last row leaves the grid's own background showing as an empty cell,
+ * which reads as a broken tile rather than as whitespace. The count has to be
+ * worked out **per breakpoint**: every variant of this grid is two columns from
+ * `sm` up and only widens at `lg`, so five items in a three-column grid are
+ * short by one cell at tablet width and by one at desktop — different amounts,
+ * needing different spans.
+ *
+ * The `lg:col-span-1` case matters too: when the desktop row happens to be
+ * exact, the `sm:col-span-2` set for tablet would otherwise carry up into it
+ * and stretch a cell that did not need stretching.
  */
+function fillLastRow(count: number, columns: 2 | 3 | 4): string {
+  const classes: string[] = [];
+
+  const smRemainder = count % 2;
+  if (smRemainder !== 0) classes.push(SM_SPAN);
+
+  if (columns > 2) {
+    const lgRemainder = count % columns;
+    if (lgRemainder !== 0) classes.push(LG_SPAN[columns - lgRemainder + 1]);
+    else if (smRemainder !== 0) classes.push(LG_SPAN[1]);
+  }
+
+  return classes.join(" ");
+}
+
 export function IconMetro({
   items,
   icons,
@@ -281,13 +300,7 @@ export function IconMetro({
         ? "sm:grid-cols-2 lg:grid-cols-3"
         : "sm:grid-cols-2";
 
-  /*
-   * A short final row would otherwise leave the grid's own background showing
-   * as an empty cell — which reads as a missing tile, not as whitespace. The
-   * last item stretches across whatever is left instead.
-   */
-  const gap = items.length % columns;
-  const stretch = gap === 0 ? "" : gap === 1 ? spanFull[columns] : spanTwo[columns];
+  const stretch = fillLastRow(items.length, columns);
 
   return (
     <ul className={`u-metro ${cols} ${dark ? "bg-white/12" : "bg-line"}`}>
@@ -296,7 +309,7 @@ export function IconMetro({
           key={item.title}
           className={`${dark ? "bg-brand-900" : "bg-paper"} p-7 lg:p-8 ${
             i === items.length - 1 ? stretch : ""
-          }`}
+          }`.trimEnd()}
         >
           <Icon
             name={icons[i] ?? "checklist"}

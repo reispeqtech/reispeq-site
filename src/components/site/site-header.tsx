@@ -111,9 +111,20 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                     <div className="invisible absolute inset-x-0 top-full z-50 border-b border-line bg-white opacity-0 shadow-[0_24px_48px_-32px_rgba(20,22,46,0.5)] transition-[opacity,visibility] duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
                       <div className="u-shell-wide grid gap-10 py-10 lg:grid-cols-12">
                         <div className="lg:col-span-8">
+                          {/* An odd number of services in two columns leaves
+                              the grid's own background showing as an empty
+                              cell, which reads as a broken tile rather than as
+                              whitespace. The last one takes the whole row. */}
                           <ul className="u-metro bg-line sm:grid-cols-2">
-                            {services.map((s) => (
-                              <li key={s.key} className="bg-white">
+                            {services.map((s, i) => (
+                              <li
+                                key={s.key}
+                                className={`bg-white ${
+                                  i === services.length - 1 && services.length % 2 === 1
+                                    ? "sm:col-span-2"
+                                    : ""
+                                }`}
+                              >
                                 <Link href={s.href} className="group/item block p-5 transition-colors hover:bg-surface">
                                   <span className="flex items-center justify-between gap-3">
                                     <span className="text-[15px] font-semibold text-ink transition-colors group-hover/item:text-brand-600">
