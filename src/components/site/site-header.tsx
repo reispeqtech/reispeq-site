@@ -146,7 +146,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                               <Photo
                                 image="crewBrief"
                                 locale={locale}
-                                className="h-full w-full object-cover opacity-65 transition-transform duration-500 group-hover/all:scale-[1.04]"
+                                className="h-full w-full object-cover object-left opacity-65 transition-transform duration-500 group-hover/all:scale-[1.04]"
                               />
                               <span aria-hidden className="u-scrim-b absolute inset-0" />
                               <span className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 p-5 text-white">

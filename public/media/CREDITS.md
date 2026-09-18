@@ -45,10 +45,10 @@ captures of the CertiTrack Plus application and are not stock.
 | `refinery-mono.jpg` | [photo/3229014](https://www.pexels.com/photo/3229014/) | Edoardo Colombo | Process plant pipework and vessels |
 | `welding.jpg` | [photo/5846247](https://www.pexels.com/photo/5846247/) | Tima Miroshnichenko | A welder working on a steel assembly in a workshop |
 | `component.jpg` | [photo/2760241](https://www.pexels.com/photo/2760241/) | Kateryna Babaieva | A heavy machined component held for examination |
-| `factory-check.jpg` | [photo/19895915](https://www.pexels.com/photo/19895915/) | ThisIsEngineering | A technician inspecting machinery on a plant floor |
+| `inspection-valve.jpg` | Supplied by Reispeq | — | Engineers inspecting a valve with a tablet |
 | `hard-hat.jpg` | [photo/28196526](https://www.pexels.com/photo/28196526/) | Ihsan Adityawarman | A worker in a high-visibility vest holding a hard hat |
 | `engineer-helmet.jpg` | [photo/7937365](https://www.pexels.com/photo/7937365/) | Pavel Danilyuk | An engineer in a safety helmet reviewing an audit file |
-| `crew-brief.jpg` | [photo/1216589](https://www.pexels.com/photo/1216589/) | Anamul Rezwan | Two engineers discussing work at an industrial site |
+| `partner-control-room.jpg` | Supplied by Reispeq | — | An engineer monitoring dashboards across several screens |
 | `code-screen.jpg` | [photo/16592498](https://www.pexels.com/photo/16592498/) | Саша Алалыкин | Application source code on a monitor |
 | `analytics.jpg` | [photo/3861957](https://www.pexels.com/photo/3861957/) | ThisIsEngineering | A reporting dashboard open on a laptop |
 | `tablet-review.jpg` | [photo/36598855](https://www.pexels.com/photo/36598855/) | Jakub Zerdzicki | An engineer reviewing records on a tablet |

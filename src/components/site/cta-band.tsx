@@ -73,7 +73,7 @@ export function CtaBand({ locale }: { locale: Locale }) {
           <Photo
             image="crewBrief"
             locale={locale}
-            className="absolute inset-0 h-full w-full object-cover opacity-75"
+            className="absolute inset-0 h-full w-full object-cover object-left opacity-75"
           />
           <span aria-hidden className="absolute inset-0 bg-brand-950/30" />
         </div>

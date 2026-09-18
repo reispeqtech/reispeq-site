@@ -99,12 +99,13 @@ const media = {
     },
   },
   factoryCheck: {
-    id: 19895915,
-    credit: "ThisIsEngineering",
-    file: "factory-check.jpg",
+    // Supplied by Reispeq (collage 68146D3E, row 2 col 1), not Pexels.
+    id: 0,
+    credit: "Reispeq",
+    file: "inspection-valve.jpg",
     alt: {
-      en: "A technician inspecting machinery on a plant floor",
-      ar: "فني يفحص آلة في صالة الإنتاج",
+      en: "Engineers inspecting a valve and its monitoring unit with a tablet",
+      ar: "مهندسون يفحصون صماماً ووحدة المراقبة الخاصة به باستخدام جهاز لوحي",
     },
   },
   hardHat: {
@@ -126,12 +127,13 @@ const media = {
     },
   },
   crewBrief: {
-    id: 1216589,
-    credit: "Anamul Rezwan",
-    file: "crew-brief.jpg",
+    // Supplied by Reispeq (collage 68146D3E, row 1 col 2), not Pexels.
+    id: 0,
+    credit: "Reispeq",
+    file: "partner-control-room.jpg",
     alt: {
-      en: "Two engineers discussing work at an industrial site",
-      ar: "مهندسان يناقشان العمل في موقع صناعي",
+      en: "An engineer monitoring operations dashboards across several screens",
+      ar: "مهندسة تراقب لوحات العمليات على عدة شاشات",
     },
   },
   codeScreen: {
