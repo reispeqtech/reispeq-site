@@ -38,7 +38,7 @@ export const site = {
   shortName: "Reispeq",
   domain: "reispeq.com",
   url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL, "https://www.reispeq.com"),
-  email: "hello@reispeq.com",
+  email: "contact@reispeq.com",
   salesEmail: "sales@reispeq.com",
   founded: "2025",
   legalForm: "LLC",
